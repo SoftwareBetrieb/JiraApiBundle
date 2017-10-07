@@ -67,7 +67,45 @@ abstract class AbstractService
         return $this->getResponseAsArray();
     }
 
-    /**
+    protected function postData($url, $data)
+    {
+        $request = $this->client->post($url, null, $data);
+        $request->setHeader("Content-Type", "application/json");
+
+        dump($data);
+
+        $this->response = $request->send();
+
+        return $this->getResponseAsArray();
+    }
+
+    protected function postFile($url, $data)
+    {
+
+
+        $request = $this->client->createRequest('POST', $url, null, [
+            'multipart' => [
+                [
+                    'name'     => 'file',
+                    'contents' => 'bla bla bla',
+                    'filename' => 'test.txt'
+                ],
+            ],
+        ]);
+
+//         $request = $this->client->post($url, null, $data);
+        $request->setHeader("Content-Type", "multipart/form-data");
+//       $request->setHeader("X-Atlassian-Token", "nocheck");
+
+        dump($request->getHeaders());
+        dump($data);
+
+        $this->response = $request->send();
+
+        return $this->getResponseAsArray();
+    }
+
+/**
      * Get response as an array.
      *
      * @return array
