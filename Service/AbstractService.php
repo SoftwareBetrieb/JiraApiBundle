@@ -72,8 +72,6 @@ abstract class AbstractService
         $request = $this->client->post($url, null, $data);
         $request->setHeader("Content-Type", "application/json");
 
-        dump($data);
-
         $this->response = $request->send();
 
         return $this->getResponseAsArray();
