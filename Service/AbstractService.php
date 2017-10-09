@@ -3,6 +3,7 @@
 namespace JiraApiBundle\Service;
 
 use Guzzle\Http\Client;
+use Guzzle\Http\Message\PostFile;
 
 /**
  * Base class that contains common features needed by other services.
@@ -77,17 +78,12 @@ abstract class AbstractService
         return $this->getResponseAsArray();
     }
 
-    protected function postFile($url, $data)
+    protected function postFile($url, $filepath)
     {
-        $request = $this->client->post($url, null, $data);
+        $request = $this->client->post($url, null, array('file' => '@'.$filepath));
         $request->setHeader("Content-Type", "multipart/form-data");
-//       $request->setHeader("X-Atlassian-Token", "nocheck");
-
-//         dump($request->getHeaders());
-//         dump($data);
-
+        $request->setHeader("X-Atlassian-Token", "nocheck");
         $this->response = $request->send();
-
         return $this->getResponseAsArray();
     }
 

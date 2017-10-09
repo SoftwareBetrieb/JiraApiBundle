@@ -35,17 +35,24 @@ class IssueService extends AbstractService
 
     public function addFile($issueKey, $fileName, $fileContent)
     {
-        return $this->postFile(
+        $tempdir = tempnam(sys_get_temp_dir(), 'jira');
+        unlink($tempdir);
+        mkdir($tempdir);
+        $filePath = $tempdir.'/'.$fileName;
+
+        file_put_contents($filePath, $fileContent);
+
+        $result = $this->postFile(
             $this->createUrl(
                 sprintf(self::BASE_URL.'issue/%s/attachments', $issueKey)
             ),
-            array(
-                'file' => array(
-                    'filename' => $fileName,
-                    'contents' => $fileContent,
-                )
-            )
+            $filePath
         );
+
+        unlink($filePath);
+        rmdir($tempdir);
+
+        return $result;
     }
 
 
