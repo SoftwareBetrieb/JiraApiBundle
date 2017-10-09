@@ -83,8 +83,8 @@ abstract class AbstractService
         $request->setHeader("Content-Type", "multipart/form-data");
 //       $request->setHeader("X-Atlassian-Token", "nocheck");
 
-        dump($request->getHeaders());
-        dump($data);
+//         dump($request->getHeaders());
+//         dump($data);
 
         $this->response = $request->send();
 
