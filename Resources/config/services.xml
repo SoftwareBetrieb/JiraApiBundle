@@ -7,7 +7,7 @@
     </parameters>
     <services>
         <service id="jira_api.rest_client" class="Guzzle\Http\Client" public="false">
-            <argument key="baseUrl">%jira_api.url%</argument>
+            <argument>%jira_api.url%</argument>
             <argument type="collection">
                 <argument key="curl.options" type="collection">
                     <argument key="CURLOPT_USERPWD">%jira_api.credentials%</argument>
