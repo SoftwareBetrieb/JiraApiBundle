@@ -20,7 +20,7 @@
     "require": {
         "php": ">=5.4",
         "symfony/framework-bundle": "^2.4|^3.0",
-        "doctrine/annotations": "~1.2.7",
+        "doctrine/annotations": "^1.2.7",
         "guzzle/guzzle": "3.5.*"
     },
     "autoload": {
